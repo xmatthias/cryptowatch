@@ -87,9 +87,9 @@ def main():
             print("OHLC interval | count")
             for period in ohlc:
                 print("Period:", period)
-                #print(f'{period: <10} {len(ohlc[period])}')
+                # print(f'{period: <10} {len(ohlc[period])}')
                 df = pd.DataFrame(ohlc[period], columns=ohlc_cols)
-                print(df.dtypes)
+                print(df)
 
         return
 
