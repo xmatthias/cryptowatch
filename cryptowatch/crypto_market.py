@@ -4,7 +4,10 @@ from crypto_tools import request, API_URL
 def printmarketsummary(pair):
     print(f'last: {pair.price.last} high: {pair.price.high} '
           f'low: {pair.price.low} '
-          f'volume: {pair.volume}')
+          f'volume: {pair.volume}\t'
+          f'changeperc: {pair.price.change.percentage} '
+          f'changeabs: {pair.price.change.absolute}'
+          )
 
 
 def getmarketpair(exchange, pair):

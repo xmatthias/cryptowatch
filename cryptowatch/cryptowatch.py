@@ -80,11 +80,16 @@ def main():
         return
 
     if args.market and args.pairs and args.ohlc:
+        ohlc_cols = ["CloseTime", "OpenPrice", "HighPrice",
+                     "LowPrice", "ClosePrice", "Volume", "VolumeCum"]
         for pair in args.pairs:
             ohlc = cm.getohlc(args.market, pair)
             print("OHLC interval | count")
-            for a in ohlc:
-                print(f'{a: <10} {len(ohlc[a])}')
+            for period in ohlc:
+                print("Period:", period)
+                #print(f'{period: <10} {len(ohlc[period])}')
+                df = pd.DataFrame(ohlc[period], columns=ohlc_cols)
+                print(df.dtypes)
 
         return
 
