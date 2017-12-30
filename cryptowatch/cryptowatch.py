@@ -81,12 +81,16 @@ def main():
 
     if args.market and args.pairs and args.ohlc:
         for pair in args.pairs:
-            print(cm.getohlc(args.market, pair))
+            ohlc = cm.getohlc(args.market, pair)
+            print("OHLC interval | count")
+            for a in ohlc:
+                print(f'{a: <10} {len(ohlc[a])}')
+
         return
 
     if args.market and args.pairs:
         for pair in args.pairs:
-            print(cm.getmarketpair(args.market, pair))
+            cm.printmarketsummary(cm.getmarketpair(args.market, pair))
 
     if args.getallprices:
         ci.printprices(ci.getallprices())
