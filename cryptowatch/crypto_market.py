@@ -23,9 +23,13 @@ def getorderbook(exchange, pair):
     return ord
 
 
-def getohlc(exchange, pair):
+def getohlc(exchange, pair, ohlclimit):
     """get's ohlc (candle stick data) for the selected
     exchange/pair combination"""
-    ohlc = request(API_URL + "markets/" + exchange + "/" + pair + "/ohlc",
+    args = ""
+    if ohlclimit:
+        args += "periods=" + ohlclimit
+    ohlc = request(API_URL + "markets/" + exchange + "/" +
+                   pair + "/ohlc?" + args,
                    False)
     return ohlc

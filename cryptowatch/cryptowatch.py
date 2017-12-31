@@ -44,6 +44,10 @@ def main():
     parser.add_argument("--ohlc", dest="ohlc", action="store_true",
                         help="get OHLC Candlestick data")
 
+    parser.add_argument("--ohlclimit", dest="ohlclimit",
+                        help="OHLC Candlestick data limit - "
+                        "commaseparated list [60,180, ...]")
+
     parser.add_argument("--getallprices", dest="getallprices",
                         action="store_true", required=False,
                         help="Get all prices exit")
@@ -83,12 +87,13 @@ def main():
         ohlc_cols = ["CloseTime", "OpenPrice", "HighPrice",
                      "LowPrice", "ClosePrice", "Volume", "VolumeCum"]
         for pair in args.pairs:
-            ohlc = cm.getohlc(args.market, pair)
+            ohlc = cm.getohlc(args.market, pair, args.ohlclimit)
             print("OHLC interval | count")
             for period in ohlc:
                 print("Period:", period)
                 # print(f'{period: <10} {len(ohlc[period])}')
                 df = pd.DataFrame(ohlc[period], columns=ohlc_cols)
+                #print(df.describe())
                 print(df)
 
         return
