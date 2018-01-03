@@ -5,7 +5,8 @@ import pandas as pd
 # from pandas.io.json import json_normalize
 
 import crypto_info as ci
-import crypto_market as cm
+from crypto_market import getmarketpair, getohlc, getorderbook, \
+                printmarketsummary
 
 
 def main():
@@ -80,27 +81,27 @@ def main():
 
     if args.market and args.pairs and args.orderbook:
         for pair in args.pairs:
-            print(cm.getorderbook(args.market, pair))
+            print(getorderbook(args.market, pair))
         return
 
     if args.market and args.pairs and args.ohlc:
         ohlc_cols = ["CloseTime", "OpenPrice", "HighPrice",
                      "LowPrice", "ClosePrice", "Volume", "VolumeCum"]
         for pair in args.pairs:
-            ohlc = cm.getohlc(args.market, pair, args.ohlclimit)
+            ohlc = getohlc(args.market, pair, args.ohlclimit)
             print("OHLC interval | count")
             for period in ohlc:
                 print("Period:", period)
                 # print(f'{period: <10} {len(ohlc[period])}')
                 df = pd.DataFrame(ohlc[period], columns=ohlc_cols)
-                #print(df.describe())
+                # print(df.describe())
                 print(df)
 
         return
 
     if args.market and args.pairs:
         for pair in args.pairs:
-            cm.printmarketsummary(cm.getmarketpair(args.market, pair))
+            printmarketsummary(getmarketpair(args.market, pair))
 
     if args.getallprices:
         ci.printprices(ci.getallprices())
