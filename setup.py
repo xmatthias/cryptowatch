@@ -12,6 +12,7 @@ setup(name='cryptowatch',
       # packages=find_packages(),
       packages=["cryptowatch"],
       install_requires=[
-          'requests'
+          'requests',
+          'colorama'
       ],
       zip_safe=False)
