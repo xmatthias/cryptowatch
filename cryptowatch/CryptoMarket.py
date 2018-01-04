@@ -31,7 +31,8 @@ class CryptoMarket:
         self.updatesummary()
 
     def __str__(self):
-        return (f'last: {self.price} high: {self.highprice} '
+        return (f'Pair: {self.pair} '
+                f'last: {self.price} high: {self.highprice} '
                 f'low: {self.lowprice} '
                 f'volume: {self.volume}\t'
                 f'changeperc: {self.changeperc} '
