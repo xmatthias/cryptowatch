@@ -8,7 +8,9 @@ setup(name='cryptowatch',
       author='Matthias Voppichler',
       author_email='xmatthias@outlook.com',
       license='GPL3',
-      packages=find_packages(),
+      scripts=['cryptowat.py'],
+      # packages=find_packages(),
+      packages=["cryptowatch"],
       install_requires=[
           'requests'
       ],

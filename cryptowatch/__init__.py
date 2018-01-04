@@ -1,3 +1,4 @@
 """CryptoWatch API Client"""
 
-from .CryptoMarket import CryptoMarket
+import cryptowatch.crypto_info
+from cryptowatch.CryptoMarket import CryptoMarket

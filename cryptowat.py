@@ -5,7 +5,7 @@ import pandas as pd
 # from pandas.io.json import json_normalize
 
 import cryptowatch.crypto_info as ci
-from . import CryptoMarket
+from cryptowatch.CryptoMarket import CryptoMarket
 
 
 def main():
