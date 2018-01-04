@@ -34,32 +34,43 @@ def main():
                         action="store_true", required=False,
                         help="Get markets index and exit")
 
-    parser.add_argument("-m", "--market", dest="market", required=False,
-                        help="Get available markets / pairs for this exchange")
-    parser.add_argument("-p", "--pairs", dest="pairs", nargs="*",
-                        help="Pairs to monitor")
-
-    parser.add_argument("--orderbook", dest="orderbook", action="store_true",
-                        help="print orderbook TODO: complete printing")
-
-    parser.add_argument("--ohlc", dest="ohlc", action="store_true",
-                        help="get OHLC Candlestick data")
-
-    parser.add_argument("--ohlclimit", dest="ohlclimit",
-                        help="OHLC Candlestick data limit - "
-                        "commaseparated list [60,180, ...]")
-
     parser.add_argument("--getallprices", dest="getallprices",
                         action="store_true", required=False,
                         help="Get all prices exit")
+
+    parser.add_argument("--proxy", dest="proxy",
+                        help="Proxy for connections in the scheme "
+                             "<proto>://[user]:[pass]@<url>:<port>"
+                             "sample: socks5://localhost:2000")
     parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                         help="Verbose output")
+
+    market = parser.add_argument_group("Market",
+                                       description="Market arguments -> "
+                                       "-m and -p can/should be combined")
+    market.add_argument("-m", "--market", dest="market", required=False,
+                        help="Get available markets / pairs for this exchange")
+    market.add_argument("-p", "--pairs", dest="pairs", nargs="*",
+                        help="Pairs to monitor")
+
+    market.add_argument("--orderbook", dest="orderbook", action="store_true",
+                        help="print orderbook TODO: complete printing")
+
+    market.add_argument("--ohlc", dest="ohlc", action="store_true",
+                        help="get OHLC Candlestick data")
+
+    market.add_argument("--ohlclimit", dest="ohlclimit",
+                        help="OHLC Candlestick data limit - "
+                        "commaseparated list [60,180, ...]")
 
     args = parser.parse_args()
 
     if args.verbose:
         print("###verbosity on###")
         crypto_tools.VERBOSE = True
+    if args.proxy:
+        print("### Setting Proxy to", args.proxy, "###")
+        crypto_tools.PROXY = {"https": args.proxy}
 
     if args.listassets:
         ci.printassets(ci.listassets())

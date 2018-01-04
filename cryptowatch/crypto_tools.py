@@ -9,6 +9,7 @@ VERBOSE = False
 API_URL = "https://api.cryptowat.ch/"
 
 allowance = {}
+PROXY = {}
 
 MAXALLOWANCE = 8000000000
 # 8s
@@ -31,7 +32,7 @@ def request(url, convert=True):
     """Requests to api and return python object"""
     # pylint: disable=W0603
     global allowance
-    req = requests.get(url)
+    req = requests.get(url, proxies=PROXY)
     if convert:
         res = json2obj(req.text)
 
