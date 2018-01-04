@@ -1,5 +1,5 @@
 # from pandas.io.json import json_normalize
-from crypto_tools import request, API_URL
+from cryptowatch.crypto_tools import request, API_URL
 
 
 def printassets(assets):
