@@ -6,6 +6,7 @@ import pandas as pd
 
 import cryptowatch.crypto_info as ci
 from cryptowatch.CryptoMarket import CryptoMarket
+import cryptowatch.crypto_tools as crypto_tools
 
 
 def main():
@@ -51,7 +52,14 @@ def main():
     parser.add_argument("--getallprices", dest="getallprices",
                         action="store_true", required=False,
                         help="Get all prices exit")
+    parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
+                        help="Verbose output")
+
     args = parser.parse_args()
+
+    if args.verbose:
+        print("###verbosity on###")
+        crypto_tools.VERBOSE = True
 
     if args.listassets:
         ci.printassets(ci.listassets())

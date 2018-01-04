@@ -5,10 +5,13 @@ from collections import namedtuple
 import requests
 from colorama import Fore
 
-
+VERBOSE = False
 API_URL = "https://api.cryptowat.ch/"
 
 allowance = {}
+
+MAXALLOWANCE = 8000000000
+# 8s
 
 
 # source: https://stackoverflow.com/questions/
@@ -47,8 +50,11 @@ def printallowance():
     rem = int(allowance.remaining)
     cost = int(allowance.cost)
     avg_rem = rem / cost
-    print(Fore.YELLOW + "Allowance:" + Fore.LIGHTWHITE_EX)
-    print("Cost:", cost)
-    print("Remaining:", rem)
-    print("AvgRemReq:", avg_rem)
-    print()
+    perc = rem / MAXALLOWANCE * 100
+    if VERBOSE:
+        print(Fore.YELLOW + "Allowance:" + Fore.LIGHTWHITE_EX)
+        print("Cost:", cost)
+        print("Remaining:", rem)
+        print("AvgRemReq:", avg_rem)
+        print("PercRem:", perc, "%")
+        print()
