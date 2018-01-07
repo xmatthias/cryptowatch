@@ -21,15 +21,18 @@ class CryptoMarket:
     exchange = str
     pair = str
 
-    def __init__(self, exchange, currencypair):
+    def __init__(self, exchange, currencypair, empty=False):
         """
         initialize market class (and get summary!)
-        exchange: Exchange
-        currencypair: sample: [btcusd]
+        exchange:       Exchange
+        currencypair:   sample: [btcusd]
+        empty:          don't run any call to cryptowat.ch on initialisation
+                        in order to save API Requests
         """
         self.exchange = exchange
         self.pair = currencypair
-        self.updatesummary()
+        if not empty:
+            self.updatesummary()
 
     def __str__(self):
         return (f'Pair: {self.pair} '
