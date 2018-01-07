@@ -100,7 +100,11 @@ def main():
     if args.market and args.pairs and args.orderbook:
         for pair in args.pairs:
             mark = CryptoMarket(args.market, pair)
-            print(mark.getorderbook())
+            ordb = mark.getorderbook()
+            print("Asks:")
+            print(ordb["asks"].head())
+            print("Bids:")
+            print(ordb["bids"].head(5))
         return
 
     if args.market and args.pairs and args.ohlc:

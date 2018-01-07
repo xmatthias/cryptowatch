@@ -1,5 +1,6 @@
 """CryptoMarket class module"""
 from cryptowatch.crypto_tools import request, API_URL
+import pandas as pd
 
 
 class CryptoMarket:
@@ -58,14 +59,17 @@ class CryptoMarket:
     def getorderbook(self):
         """
         get's orderbook for the selected exchange/pair combination
-        Access using result.bids and result.asks
+        returns a Dictionary with bids / asks in Panda Dataframes.
         details:
         https://cryptowat.ch/docs/api#orderbook
         """
+        columns = ["Price", "Amount"]
         orb = request(API_URL + "markets/" + self.exchange + "/" +
-                      self.pair + "/orderbook")
-        print("asks:", len(orb.asks), "bids:", len(orb.bids))
-        return orb
+                      self.pair + "/orderbook", False)
+        asks = pd.DataFrame(orb["asks"], columns=columns)
+        bids = pd.DataFrame(orb["bids"], columns=columns)
+        print("asks:", len(asks), "bids:", len(bids))
+        return {"asks": asks, "bids": bids}
 
     def getohlc(self, ohlclimit):
         """
