@@ -91,7 +91,7 @@ class CryptoMarket:
 
     def getTrades(self):
         """
-        get's latest trade data as panda dataframe
+        get's latest trade data as Panda DataFrame
         details:
         https://cryptowat.ch/docs/api#trades
         """
