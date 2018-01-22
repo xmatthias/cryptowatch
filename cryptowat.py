@@ -63,6 +63,9 @@ def main():
                         help="OHLC Candlestick data limit - "
                         "commaseparated list [60,180, ...]")
 
+    market.add_argument("--trades", dest="trades", action="store_true",
+                        help="get Trades  data")
+
     args = parser.parse_args()
 
     if args.verbose:
@@ -111,7 +114,7 @@ def main():
         ohlc_cols = ["CloseTime", "OpenPrice", "HighPrice",
                      "LowPrice", "ClosePrice", "Volume", "VolumeCum"]
         for pair in args.pairs:
-            mark = CryptoMarket(args.market, pair)
+            mark = CryptoMarket(args.market, pair, empty=True)
             ohlc = mark.getohlc(args.ohlclimit)
             print("OHLC interval | count")
             for period in ohlc:
@@ -121,6 +124,12 @@ def main():
                 # print(df.describe())
                 print(df)
 
+        return
+
+    if args.market and args.pairs and args.trades:
+        for pair in args.pairs:
+            mark = CryptoMarket(args.market, pair, empty=True)
+            print(mark.getTrades())
         return
 
     if args.market and args.pairs:

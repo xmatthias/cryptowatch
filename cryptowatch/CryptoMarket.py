@@ -88,3 +88,19 @@ class CryptoMarket:
                        self.pair + "/ohlc?" + args,
                        False)
         return ohlc
+
+    def getTrades(self):
+        """
+        get's latest trade data as panda dataframe
+        details:
+        https://cryptowat.ch/docs/api#trades
+        """
+        columns = ["id", "timestamp", "price", "amount"]
+        trades = request(API_URL + "markets/" + self.exchange + "/" +
+                         self.pair + "/trades")
+        df = pd.DataFrame(trades, columns=columns)
+        df.timestamp = pd.to_datetime(df.timestamp, unit="s")
+        df.set_index("timestamp",  inplace=True)
+
+        df.drop("id", axis=1, inplace=True)
+        return df
