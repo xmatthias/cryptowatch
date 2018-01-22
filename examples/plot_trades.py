@@ -2,7 +2,7 @@
 from cryptowatch import CryptoMarket
 import numpy as np
 import matplotlib.pyplot as plt
-import math
+
 
 def main():
     """
